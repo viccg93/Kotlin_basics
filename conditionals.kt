@@ -1,50 +1,60 @@
 fun main() {
-    //las variables en kotlin se deben de declarar previamente
+    //uso de condicionales en kotlin
+    val trafficLightColor = "Amber"
+    if(trafficLightColor == "red"){
+        println("stop")
+    }else if(trafficLightColor == "yellow"){
+        println("reduce speed")
+    }else if (trafficLightColor == "green"){
+        println("go on")
+    }else{
+        println("Stop, something is wrong")
+    }
     
-    //val se usa para almacenamiento read-only
-    //es preferible usar val siempre que sea posible
-    val greeting: String = "Saludos "
+    //para evitar el branching del coddigo anterior se puede usar when
+    //when evalua en orden, por lo que las opciones posteriores no se ejecutan cuando hay un match en alguna opcion
     
-    //var se usa para valores mutables
-    //si se asigna un valor inicial se puede omitir el tipo (type inference)
-    var subject = "Victor"
-    println(greeting + subject)
+    when(trafficLightColor) {
+        "red" -> println("stop")
+        "yellow", "Amber" -> println("reduce speed")
+        "green" -> println("go on")
+        else -> println("Stop, something is wrong")
+    }
     
-    //algunos de los tipos comunes son Int, String, Boolean, Float y Double
+    //encuentra si un valor es un numero primo entre 1 y 10
+    //cuando el resultado de evaluar una expresion es repetitiva se puede usar ,
     
-    //String template
-    println("Hola $subject desde un string template")
+    val number = 10
+    when (number) {
+        2,3,5,7 -> println("el numero es primo entre 1 y 10")
+        else -> println("el numero no es primo entre 1 y 10")
+    }
     
-    //cuando se actualiza una variable no es necesario usar la palabra reservada var
     
-    subject = "Ivan"
-    println("$greeting $subject")
+    //tambien se pueden usar rangos en when mediante in
+    //los limites de in son inclusivos
     
-    //el tipo double tiene 64 bits, mientras el tipo float tiene 32
+    //el tipo Any permite indicar que el valor o variable va a ser de cualquier tipo
+    val number2: Any = 20.1
     
-    val roundedPi : Double = 3.1416
-    println(roundedPi)
+    when (number2) {
+        2,3,5,7 -> println("el numero es primo entre 1 y 10")
+        in 1..10 -> println("el numero se encuentra entre 1 y 10, pero no es primo")
+        //tambien se puede usar is para averiguar el tipo del parametro
+        is Int -> println("el numero es un entero, pero no se encuentra entre 1 y 10")
+        else -> println("el valor no es entero")
+    }
     
-    birthdayGreeting("Vic")
+    //tanto if/else como when pueden ser usados como expresiones
+    //donde se pueden almacenar distintos valores en funcion de una decision
     
-    println("good to see ya Vic, you've got ${calculateCurrentAge(1993)} years old")
-    //named parameter
-    println("good to see ya Vic, you've got ${calculateCurrentAge(yearOfBirth = 1993)} years old")
-}
-
-//para declarar una funcion se usa la palabra reservada fun
-//los parametros deben de inlcuir el tipo de manera explicita
-//tambien se debe de especificar el tipo en caso de retornar algun valor
-//cuando se omite como en el siguiente metodo, el tipo de retorno es Unit
-//el tipo Unit significa que no se devuelve un valor, es similar a void en otros lenguajes
-//unit es importante cuando se usan lambdas
-fun birthdayGreeting(subject: String) {
-    println("Happy Birthday $subject")
-}
-
-//cuando una ffuncion devuelve un valor, este se debe de eespecificar explicitamente, excluyendo el caso de Unit
-//los parametros son inmutables
-fun calculateCurrentAge (yearOfBirth : Int) : Int {
-    val currentYear = 2024
-    return currentYear - yearOfBirth
+    val message = when(trafficLightColor) {
+        "red" -> "stop"
+        "yellow", "Amber" -> "reduce speed"
+        "green" -> "go on"
+        else -> "Stop, something is wrong"
+    }
+    
+    println(message)
+    
 }
